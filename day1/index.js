@@ -37,6 +37,10 @@ lines.reduce((acc, current, index) => {
   }
 }, initialValue)
 
-const result = Math.max(...data)
+const highestCalories = Math.max(...data)
 
-console.log(result);
+const top3 = data.sort((a, b) => b - a).slice(0, 3)
+
+const totalOfTop3 = top3.reduce((acc, curr) => acc + curr, 0);
+
+console.log(totalOfTop3);
