@@ -1,3 +1,5 @@
+// part 1
+
 // first column is the opponent
 // a = rock (1) --> x?
 // b = paper (2) --> y?
@@ -45,7 +47,7 @@ const rounds = lines.forEach(match => {
   data.push(makeRounds(round))
 })
 
-const determineRound = (round) => {
+const determineScore = (round) => {
   // draw
   if (round.opponent.move === round.you.move) {
     return 3;
@@ -56,10 +58,11 @@ const determineRound = (round) => {
 
 const calculateRound = (round) => {
   let score = round.you.score;
-  score += determineRound(round)
+  score += determineScore(round)
 
   return score;
 }
+
 let totalScore = 0;
 data.forEach(round => {
   totalScore += calculateRound(round)
