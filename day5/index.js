@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs';
 
 const input = readFileSync('input.txt', 'utf-8').split(/\r?\n/);
 
+let part1 = false;
+
 // [G]                 [D] [R]        
 // [W]         [V]     [C] [T] [M]    
 // [L]         [P] [Z] [Q] [F] [V]    
@@ -82,9 +84,7 @@ boxInput.forEach(line => {
   });
 })
 
-// console.log(boxes);
-
-moves.forEach((move, index) => {
+moves.forEach((move) => {
   let instructions = move.split(' ');
   // parse all the numbers in the instructions
   let numbers = instructions.map(item => parseInt(item));
@@ -97,13 +97,24 @@ moves.forEach((move, index) => {
     to: numbers[2] - 1
   }
 
-  for (let i = 0; i < instruction.amount; i++) {
+  if (part1) {
+    for (let i = 0; i < instruction.amount; i++) {
 
-    let from = boxes[instruction.from];
+      let from = boxes[instruction.from];
+      let to = boxes[instruction.to];
+
+      const box = from.shift();
+      to.unshift(box);
+    }
+  } else {
+    let stack = [];
+    for (let i = 0; i < instruction.amount; i++) {
+      const from = boxes[instruction.from];
+      const box = from.shift();
+      stack.push(box);
+    }
     let to = boxes[instruction.to];
-
-    const box = from.shift();
-    to.unshift(box);
+    stack.reverse().forEach(box => to.unshift(box));
   }
 })
 
