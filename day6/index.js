@@ -10,20 +10,22 @@ const input = readFileSync('input.txt', 'utf-8');
 // the end of the first such four-character marker
 
 
-const findStartOfPacket = () => {
+const findStartOfPacket = (startSize) => {
   const chars = input.split('');
   let start = 0;
-  let end = 4;
+  let end = startSize;
   while (end < chars.length) {
     const chunk = chars.slice(start, end);
     const compare = new Set(chunk)
     // check if chunck doesn't contain any repeat characters
-    if (compare.size === 4) {
+    if (compare.size === startSize) {
       return end;
     }
     start++;
     end++;
   }
 }
-const packetStart = findStartOfPacket()
-console.log(packetStart);
+const part1 = findStartOfPacket(4);
+const part2 = findStartOfPacket(14);
+console.log(part1);
+console.log(part2);
